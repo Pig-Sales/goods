@@ -7,6 +7,7 @@ import com.ps.service.TodayPriceService;
 import com.ps.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class TodayPriceController {
 
     @Autowired
     private TodayPriceService todayPriceService;
+    @Value("${jwt.signKey}")
+    private String signKey;
 
     @PostMapping("/getTodayPrice")
     public Result getTodayPrice(@RequestBody Days days){
@@ -28,7 +31,7 @@ public class TodayPriceController {
 
     @PostMapping("/createTodayPrice")
     public Result createTodayPrice(@RequestHeader String Authorization,@RequestBody Today_Price todayPrice){
-        Claims claims = JwtUtils.parseJWT(Authorization);
+        Claims claims = JwtUtils.parseJWT(Authorization,signKey);
         String user_auth = (String) claims.get("user_auth");
         if(!Objects.equals(user_auth, "admin")) {
             return Result.error("无平台方权限");
