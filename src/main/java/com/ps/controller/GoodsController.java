@@ -5,6 +5,7 @@ import com.ps.client.UserClient;
 import com.ps.pojo.GetGoodsByConditions;
 import com.ps.pojo.Goods;
 import com.ps.pojo.Result;
+import com.ps.pojo.User;
 import com.ps.service.GoodsService;
 import com.ps.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -30,7 +31,9 @@ public class GoodsController {
     public Result createNewGoods(@RequestHeader String Authorization, @RequestBody Goods goods){
         Claims claims = JwtUtils.parseJWT(Authorization,signKey);
         String openId = (String) claims.get("openId");
-        if((boolean)userClient.isSellerSafe(openId).getData()){
+        User user=new User();
+        user.setUser_id(openId);
+        if((boolean)userClient.isSellerSafe(user).getData()){
             if(goods.getGoods_id()==null){
                 goodsService.createNewGoods(goods);
                 return Result.success();
