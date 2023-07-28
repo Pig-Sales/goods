@@ -1,10 +1,7 @@
 package com.ps.service.impl;
 
 import com.ps.client.UserClient;
-import com.ps.pojo.GetGoodsByConditions;
-import com.ps.pojo.Goods;
-import com.ps.pojo.Today_Price;
-import com.ps.pojo.User;
+import com.ps.pojo.*;
 import com.ps.service.GoodsService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +113,16 @@ public class GoodsImpl implements GoodsService {
         );
         Query query = Query.query(criteria).with(pageable);
         return mongoTemplate.find(query, Goods.class,"goods");
+    }
+
+    @Override
+    public List<Goods> getGoodsByGoodsType(GetGoodsByGoodsType getGoodsByGoodsType) {
+        Pageable pageable = PageRequest.of(getGoodsByGoodsType.getPage_num()-1, getGoodsByGoodsType.getPage_size());
+        if(getGoodsByGoodsType.getGoods_type()!=null) {
+            Query query=Query.query(Criteria.where("goods_type").is(getGoodsByGoodsType.getGoods_type())).with(pageable);
+            return mongoTemplate.find(query,Goods.class,"goods");
+        }
+        Query query = new Query().with(pageable);
+        return mongoTemplate.find(query,Goods.class,"goods");
     }
 }

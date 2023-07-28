@@ -2,18 +2,13 @@ package com.ps.controller;
 
 
 import com.ps.client.UserClient;
-import com.ps.pojo.GetGoodsByConditions;
-import com.ps.pojo.Goods;
-import com.ps.pojo.Result;
-import com.ps.pojo.User;
+import com.ps.pojo.*;
 import com.ps.service.GoodsService;
 import com.ps.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
@@ -54,4 +49,8 @@ public class GoodsController {
         return Result.success(goodsService.getGoodsByConditions(getGoodsByConditions));
     }
 
+    @PostMapping("/getGoodsByGoodsType")
+    public Result getGoodsByGoodsType(@RequestBody GetGoodsByGoodsType getGoodsByGoodsType){
+        return Result.success(goodsService.getGoodsByGoodsType(getGoodsByGoodsType));
+    }
 }
