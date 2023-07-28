@@ -16,7 +16,7 @@ spring:
           group: DEFAULT_GROUP
           refresh: true
         server-addr: 124.223.119.145:8848 #nacos配置中心
-        namespace:  fd161dbd-1a0d-4e21-b877-6750b2fa025f #配置命名空间
+        namespace:  sxh #配置命名空间
       discovery:
         server-addr: 124.223.119.145:8848 #nacos注册中心
-        namespace: fd161dbd-1a0d-4e21-b877-6750b2fa025f #注册命名空间
+        namespace:  sxh #注册命名空间
