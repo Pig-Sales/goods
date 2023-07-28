@@ -36,7 +36,7 @@ public class GoodsController {
             goodsService.updateOldGoods(goods);
             return Result.success();
         }
-        return Result.error("无发布/修改商品权限");
+        return Result.error("发布商品资质未通过");
     }
 
     @PostMapping("/getGoodsById")
