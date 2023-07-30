@@ -1,5 +1,7 @@
 package com.ps.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ps.client.UserClient;
 import com.ps.pojo.*;
 import com.ps.service.GoodsService;
@@ -103,10 +105,11 @@ public class GoodsImpl implements GoodsService {
         }
 
         List<String> list= new ArrayList<>();
-        List<User> userList = (List<User>) userClient.getUseridByName(getGoodsByConditions.getInput_condition()).getData();
-        userList.forEach(user -> {
-            list.add(user.getUser_id());
-        });
+        List<User> userList =new ObjectMapper().convertValue(
+                userClient.getUseridByName(getGoodsByConditions.getInput_condition()).getData(),
+                new TypeReference<List<User>>(){}
+        );
+        userList.forEach(user -> list.add(user.getUser_id()));
         Criteria criteria = new Criteria().orOperator(
                 Criteria.where("user_id").in(list),
                 Criteria.where("goods_name").regex(getGoodsByConditions.getInput_condition()),
