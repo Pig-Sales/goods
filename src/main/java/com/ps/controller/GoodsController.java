@@ -51,4 +51,12 @@ public class GoodsController {
     public Result getGoodsByGoodsType(@RequestBody GetGoodsByGoodsType getGoodsByGoodsType){
         return Result.success(goodsService.getGoodsByGoodsType(getGoodsByGoodsType));
     }
+
+    @PostMapping("/updateGoodsNumber")
+    public Result updateGoodsNumber(@RequestBody Goods goods){
+        if(goodsService.updateGoodsNumber(goods.getGoods_id(),goods.getGoods_number())){
+            return Result.success();
+        }
+        return Result.error("商品余量不足");
+    }
 }

@@ -129,4 +129,19 @@ public class GoodsImpl implements GoodsService {
         Query query = new Query().with(pageable);
         return mongoTemplate.find(query,Goods.class,"goods");
     }
+
+    @Override
+    public boolean updateGoodsNumber(String goodsId, Integer goodsNumber) {
+        Query query=Query.query(Criteria.where("goods_id").is(goodsId));
+        Goods goods = mongoTemplate.findOne(query, Goods.class, "goods");
+        assert goods != null;
+        int i = goods.getGoods_number() + goodsNumber;
+        if(i>=0){
+            Update update=new Update();
+            update.set("goods_number",i);
+            mongoTemplate.updateFirst(query,update,"goods");
+            return true;
+        }
+        return false;
+    }
 }

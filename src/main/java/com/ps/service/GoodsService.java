@@ -16,4 +16,6 @@ public interface GoodsService {
     List<Goods> getGoodsByConditions(GetGoodsByConditions getGoodsByConditions);
 
     List<Goods> getGoodsByGoodsType(GetGoodsByGoodsType getGoodsByGoodsType);
+
+    boolean updateGoodsNumber(String goodsId, Integer goodsNumber);
 }
