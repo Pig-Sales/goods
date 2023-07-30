@@ -7,9 +7,9 @@ import com.ps.pojo.Goods;
 import java.util.List;
 
 public interface GoodsService {
-    void createNewGoods(Goods goods);
+    Goods createNewGoods(Goods goods);
 
-    void updateOldGoods(Goods goods);
+    Goods updateOldGoods(Goods goods);
 
     Goods getGoodsById(String goodsId);
 

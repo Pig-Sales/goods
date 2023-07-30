@@ -30,11 +30,9 @@ public class GoodsController {
         user.setUser_id(openId);
         if((boolean)userClient.isSellerSafe(user).getData()){
             if(goods.getGoods_id()==null){
-                goodsService.createNewGoods(goods);
-                return Result.success();
+                return Result.success(goodsService.createNewGoods(goods));
             }
-            goodsService.updateOldGoods(goods);
-            return Result.success();
+            return Result.success(goodsService.updateOldGoods(goods));
         }
         return Result.error("发布商品资质未通过");
     }

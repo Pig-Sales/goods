@@ -27,15 +27,15 @@ public class GoodsImpl implements GoodsService {
     private UserClient userClient;
 
     @Override
-    public void createNewGoods(Goods goods) {
+    public Goods createNewGoods(Goods goods) {
         goods.setGoods_id((new ObjectId()).toString());
         goods.setCreate_time(LocalDateTime.now().toString());
         goods.setUpdate_time(LocalDateTime.now().toString());
-        mongoTemplate.save(goods,"goods");
+        return mongoTemplate.save(goods,"goods");
     }
 
     @Override
-    public void updateOldGoods(Goods goods) {
+    public Goods updateOldGoods(Goods goods) {
         goods.setUpdate_time(LocalDateTime.now().toString());
         Query query = Query.query(Criteria.where("goods_id").is(goods.getGoods_id()));
         Update update=new Update();
@@ -65,6 +65,7 @@ public class GoodsImpl implements GoodsService {
         }
         update.set("update_time",goods.getUpdate_time());
         mongoTemplate.updateFirst(query,update,"goods");
+        return mongoTemplate.findOne(query,Goods.class,"goods");
     }
 
     @Override
