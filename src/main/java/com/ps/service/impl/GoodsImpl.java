@@ -105,8 +105,10 @@ public class GoodsImpl implements GoodsService {
         }
 
         List<String> list= new ArrayList<>();
+        User user1 = new User();
+        user1.setUsername(getGoodsByConditions.getInput_condition());
         List<User> userList =new ObjectMapper().convertValue(
-                userClient.getUseridByName(getGoodsByConditions.getInput_condition()).getData(),
+                userClient.getUseridByName(user1).getData(),
                 new TypeReference<List<User>>(){}
         );
         userList.forEach(user -> list.add(user.getUser_id()));
