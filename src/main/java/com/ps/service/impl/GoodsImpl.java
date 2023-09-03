@@ -101,7 +101,7 @@ public class GoodsImpl implements GoodsService {
 
         if(getGoodsByConditions.getInput_condition()==null){
             Query query = new Query().with(pageable);
-            return mongoTemplate.find(query,Goods.class,"goods");
+            return time_condition_screen(getGoodsByConditions, query);
         }
 
         List<String> list= new ArrayList<>();
@@ -118,7 +118,22 @@ public class GoodsImpl implements GoodsService {
                 Criteria.where("goods_type").regex(getGoodsByConditions.getInput_condition())
         );
         Query query = Query.query(criteria).with(pageable);
-        return mongoTemplate.find(query, Goods.class,"goods");
+        return time_condition_screen(getGoodsByConditions, query);
+    }
+
+    private List<Goods> time_condition_screen(GetGoodsByConditions getGoodsByConditions, Query query) {
+        List<Goods> res = mongoTemplate.find(query, Goods.class,"goods");
+        String time_condition=getGoodsByConditions.getTime_condition();
+        if (time_condition != null) {
+            for (int i = 0; i < res.size(); ) {
+                if (time_condition.compareTo(res.get(i).getSeller_willing_start_time()) < 0 || time_condition.compareTo(res.get(i).getSeller_willing_end_time()) > 0) {
+                    res.remove(i);
+                } else {
+                    i++;
+                }
+            }
+        }
+        return res;
     }
 
     @Override
