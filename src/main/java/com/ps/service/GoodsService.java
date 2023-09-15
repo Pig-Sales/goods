@@ -18,4 +18,6 @@ public interface GoodsService {
     List<Goods> getGoodsByGoodsType(GetGoodsByGoodsType getGoodsByGoodsType);
 
     boolean updateGoodsNumber(String goodsId, Integer goodsNumber);
+
+    List<Goods> getGoodsByUserId(String openId);
 }

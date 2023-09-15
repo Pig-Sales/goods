@@ -161,4 +161,10 @@ public class GoodsImpl implements GoodsService {
         }
         return false;
     }
+
+    @Override
+    public List<Goods> getGoodsByUserId(String openId) {
+        Query query = Query.query(Criteria.where("user_id").is(openId));
+        return mongoTemplate.find(query,Goods.class,"goods");
+    }
 }

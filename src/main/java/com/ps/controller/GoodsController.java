@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
@@ -58,5 +60,16 @@ public class GoodsController {
             return Result.success();
         }
         return Result.error("商品余量不足");
+    }
+
+    @PostMapping("/getGoodsByToken")
+    public Result getGoodsByToken(@RequestHeader String Authorization){
+        Claims claims = JwtUtils.parseJWT(Authorization,signKey);
+        String userAuth = (String) claims.get("user_auth");
+        if("seller".equals(userAuth)){
+            String openId = (String) claims.get("openId");
+            return Result.success(goodsService.getGoodsByUserId(openId));
+        }
+        return Result.error("非卖家用户，查询其商品失败！");
     }
 }
