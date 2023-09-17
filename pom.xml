@@ -58,6 +58,22 @@
             <version>8.14.0</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>utils</id>
+            <url>https://raw.githubusercontent.com/Pig-Sales/utils/main/repo</url>
+        </repository>
+        <repository>
+            <id>feign</id>
+            <url>https://raw.githubusercontent.com/Pig-Sales/feign/main/repo</url>
+        </repository>
+        <repository>
+            <id>ps_parent</id>
+            <url>https://raw.githubusercontent.com/Pig-Sales/ps_parent/main/repo</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
