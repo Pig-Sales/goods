@@ -65,6 +65,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+<!--                   <fork> <addResources> idea热部署-->
                     <fork>true</fork>
                     <addResources>true</addResources>
                     <!-- 指定该Main Class为全局的唯一入口 -->
