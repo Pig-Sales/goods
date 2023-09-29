@@ -16,10 +16,14 @@ import java.util.Objects;
 @RequestMapping("/goods")
 public class GoodsController {
 
+    private final UserClient userClient;
+    private final GoodsService goodsService;
+
     @Autowired
-    private UserClient userClient;
-    @Autowired
-    private GoodsService goodsService;
+    public GoodsController(UserClient userClient,GoodsService goodsService){
+        this.userClient=userClient;
+        this.goodsService=goodsService;
+    }
 
     @Value("${jwt.signKey}")
     private String signKey;
