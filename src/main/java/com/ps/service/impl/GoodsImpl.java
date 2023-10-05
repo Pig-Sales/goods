@@ -62,9 +62,6 @@ public class GoodsImpl implements GoodsService {
         if (goods.getPrice() != null) {
             update.set("price", goods.getPrice());
         }
-        if (goods.getDeposit() != null) {
-            update.set("deposit", goods.getDeposit());
-        }
         if (goods.getMin_weight() != null) {
             update.set("min_weight", goods.getMin_weight());
         }
