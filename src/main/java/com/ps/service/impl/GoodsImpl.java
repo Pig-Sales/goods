@@ -15,7 +15,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,7 +33,7 @@ public class GoodsImpl implements GoodsService {
     private final CacheClient cacheClient;
 
     @Autowired
-    public GoodsImpl(MongoTemplate mongoTemplate, UserClient userClient, CacheClient cacheClient,StringRedisTemplate stringRedisTemplate) {
+    public GoodsImpl(MongoTemplate mongoTemplate, UserClient userClient, CacheClient cacheClient) {
         this.mongoTemplate = mongoTemplate;
         this.userClient = userClient;
         this.cacheClient = cacheClient;
